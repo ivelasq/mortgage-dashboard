@@ -1,0 +1,18 @@
+/*-- scss:defaults --*/
+
+$navbar-bg:    black !default;
+$navbar-fg: white !default;
+
+.navbar-container {
+    height: 75px
+}
+
+.bslib-card .card-body p {
+    font-size: small;
+    align-content: center;
+}
+
+.bslib-value-box .value-box-area {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+}

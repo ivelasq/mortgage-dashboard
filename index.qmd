@@ -1,0 +1,98 @@
+---
+title: "Housing Market at a Glance"
+format: 
+  dashboard:
+    theme: [litera, custom.scss]
+    orientation: columns
+---
+
+```{python}
+#| label: setup
+#| include: false
+import pandas as pd
+import plotly.express as px
+import plotly.io as pio
+
+pio.templates.default = "plotly_white"
+data_files = ['data/weekly_mortgage_rates.csv', 'data/hoi.csv', 'data/mortgage_origination_state.csv']
+data_frames = [pd.read_csv(file).sort_values(by='date') for file in data_files]
+
+mortgages, hoi, origin = data_frames
+```
+
+```{python}
+#| label: create-graphs
+#| output: false
+
+# Mortgage rates over time
+fig = px.line(mortgages, x='date', y=['fixed_30', 'fixed_15'], title="Mortgage Interest Rates 15- and 30-Year")
+fig.update_traces(name="30-year", selector=dict(name="fixed_30"))
+fig.update_traces(name="15-year", selector=dict(name="fixed_15"))
+fig.update_xaxes(title_text='')
+fig.update_yaxes(title_text='')
+fig.update_layout(legend_title_text='')
+
+# Housing opportunity index
+hoi_fig = px.line(hoi, x='date', y='hoi', title='Housing Opportunity Index<br><sup>Percentage of homes affordable to median-income families</sup>')
+hoi_fig.update_xaxes(title_text='')
+hoi_fig.update_yaxes(title_text='')
+
+# Mortgage origination
+origin_fig = px.choropleth(origin, scope="usa", locations='GEOID', locationmode="USA-states", color='MORT_ADJ', color_continuous_scale="Jet", animation_frame='date', range_color=(0.009, 0.073))
+origin_fig.update_traces(showscale=False)
+origin_fig.update_layout(coloraxis_colorbar=dict(title=""))
+
+# Median home prices
+price_fig = px.bar(hoi, x='date', y='median_price')
+price_fig.update_xaxes(title_text='')
+price_fig.update_yaxes(title_text='Median Home Price (thousands $)')
+```
+
+# Stats
+
+## Column {width="20%"}
+
+::: {.valuebox color="white"}
+`{python} mortgages['fixed_30'].iloc[-1]`%
+
+Average annual rate for a 30-year fixed mortgage in Oct. 2023
+:::
+
+::: {.valuebox color="white"}
+`{python} mortgages['fixed_15'].iloc[-1]`%
+
+Average annual rate for a 15-year fixed mortgage in Oct. 2023
+:::
+
+::: {.valuebox color="white"}
+$`{python} hoi['median_price'].iloc[-1]`k
+
+National median home price
+:::
+
+## Column 
+
+```{python}
+#| title: "Adjusted Mortgage Originations per Capita"
+origin_fig.show()
+```
+
+## Column {.tabset width="40%"}
+
+```{python}
+#| title: "Housing Economics"
+fig.show()
+hoi_fig.show()
+```
+
+```{python}
+#| title: "Median House Price"
+price_fig.show()
+```
+
+# Data
+
+The data is from the National Association Of Home Builders Of The United States (NAHB). [Access the NAHB website](https://www.nahb.org/).
+
+*  [Mortgage Interest Rates 15- and 30-Year](https://www.nahb.org/news-and-economics/housing-economics/national-statistics/weekly-mortgage-rates-15-and-30-year)
+*  [Housing Opportunity Index and Median Home Prices](https://www.nahb.org/news-and-economics/housing-economics/indices/housing-opportunity-index)
