@@ -4,6 +4,7 @@ format:
   dashboard:
     theme: [litera, custom.scss]
     orientation: columns
+logo: logo.png
 ---
 
 ```{python}
