@@ -26,7 +26,7 @@ mortgages, hoi, origin = data_frames
 #| output: false
 
 # Mortgage rates over time
-fig = px.line(mortgages, x='date', y=['fixed_30', 'fixed_15'], title="Mortgage Interest Rates 15- and 30-Year")
+fig = px.line(mortgages, x='date', y=['fixed_30', 'fixed_15'], title="Interest Rates 15- and 30-Year")
 fig.update_traces(name="30-year", selector=dict(name="fixed_30"))
 fig.update_traces(name="15-year", selector=dict(name="fixed_15"))
 fig.update_xaxes(title_text='')
@@ -74,8 +74,17 @@ National median home price
 ## Column 
 
 ```{python}
-#| title: "Adjusted Mortgage Originations per Capita"
+#| title: "Mortgage Originations per Capita"
+#| height: 50%
 origin_fig.show()
+```
+
+```{python}
+#| title: Mortage Originations
+#| height: 50%
+#| padding: 0;
+from IPython.display import Markdown
+Markdown(mortgages.to_markdown(index = False))
 ```
 
 ## Column {.tabset width="40%"}
@@ -87,7 +96,7 @@ hoi_fig.show()
 ```
 
 ```{python}
-#| title: "Median House Price"
+#| title: "Median Price"
 price_fig.show()
 ```
 

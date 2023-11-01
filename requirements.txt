@@ -8,6 +8,7 @@ executing==2.0.1
 fastjsonschema==2.18.1
 ipykernel==6.26.0
 ipython==8.17.1
+itables==1.6.2
 jedi==0.19.1
 jsonschema==4.19.2
 jsonschema-specifications==2023.7.1

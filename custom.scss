@@ -8,9 +8,14 @@ $navbar-fg: white !default;
 }
 
 .bslib-card .card-body p {
-    font-size: small;
+    font-size: 1.2rem;
     align-content: center;
 }
+
+.bslib-card .bslib-value-box .value-box-title {
+    font-size: 1.8rem;
+}
+
 
 .bslib-value-box .value-box-area {
     padding-top: 0rem;
