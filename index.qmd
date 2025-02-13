@@ -80,7 +80,7 @@ origin_fig.show()
 ```
 
 ```{python}
-#| title: Mortage Originations
+#| title: Mortgage Originations
 #| height: 50%
 #| padding: 0;
 from IPython.display import Markdown
